@@ -1,4 +1,4 @@
-// route to get logged in user's info (needs the token)
+// Function to get logged-in user's info using a token
 export const getMe = (token) => {
   return fetch('/api/users/me', {
     headers: {
@@ -8,6 +8,7 @@ export const getMe = (token) => {
   });
 };
 
+// Function to create a new user
 export const createUser = (userData) => {
   return fetch('/api/users', {
     method: 'POST',
@@ -18,6 +19,7 @@ export const createUser = (userData) => {
   });
 };
 
+// Function to log in a user
 export const loginUser = (userData) => {
   return fetch('/api/users/login', {
     method: 'POST',
@@ -28,7 +30,7 @@ export const loginUser = (userData) => {
   });
 };
 
-// save book data for a logged in user
+// Function to save book data for a logged-in user
 export const saveBook = (bookData, token) => {
   return fetch('/api/users', {
     method: 'PUT',
@@ -40,7 +42,7 @@ export const saveBook = (bookData, token) => {
   });
 };
 
-// remove saved book data for a logged in user
+// Function to remove saved book data for a logged-in user
 export const deleteBook = (bookId, token) => {
   return fetch(`/api/users/books/${bookId}`, {
     method: 'DELETE',
@@ -50,8 +52,8 @@ export const deleteBook = (bookId, token) => {
   });
 };
 
-// make a search to google books api
-// https://www.googleapis.com/books/v1/volumes?q=harry+potter
+// Function to make a search to the Google Books API
+// Example: searchGoogleBooks('harry potter')
 export const searchGoogleBooks = (query) => {
   return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
 };
