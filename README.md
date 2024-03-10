@@ -22,7 +22,7 @@
 Followings are the outcomes of the challenge 21:
 
 * The URL of the functional, deployed application </br>
-[Deployed application: NETLIFY](https://drive.google.com/file/d/1DesRcjh71bOVOYdFWXmtrp2ilY5Ni-Oo/view) </br>
+[Deployed application: NETLIFY](https://merning365.netlify.app/) </br>
 
 * The URL of the GitHub repository, with a unique name and a README that describes the project </br>
 [Repository for this challenge](https://github.com/justinsta624/MERNing365)
