@@ -1,3 +1,4 @@
+// Importing necessary components and utilities from React, react-bootstrap, and custom modules
 import { useState, useEffect } from 'react';
 import {
   Container,
@@ -9,25 +10,30 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+import { ADD_BOOK } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
 
+// Defining the SearchBooks functional component
 const SearchBooks = () => {
-  // create state for holding returned google api data
+  // State for holding returned Google API data
   const [searchedBooks, setSearchedBooks] = useState([]);
-  // create state for holding our search field data
+  // State for holding search field data
   const [searchInput, setSearchInput] = useState('');
 
-  // create state to hold saved bookId values
+  // State for managing saved book IDs retrieved from local storage
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
-  // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
+  // Using useEffect to save book IDs to local storage when the component unmounts
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
   });
 
-  // create method to search for books and set state on form submit
+  // Using useMutation hook for adding a book
+  const [addBook, { mutationError }] = useMutation(ADD_BOOK);
+
+  // Function to handle form submission and search for books
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -36,12 +42,14 @@ const SearchBooks = () => {
     }
 
     try {
+      // Fetching data from the Google Books API based on the search input
       const response = await searchGoogleBooks(searchInput);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error('Something went wrong!');
       }
 
+      // Extracting relevant book data from the API response
       const { items } = await response.json();
 
       const bookData = items.map((book) => ({
@@ -52,6 +60,7 @@ const SearchBooks = () => {
         image: book.volumeInfo.imageLinks?.thumbnail || '',
       }));
 
+      // Updating the state with the searched book data
       setSearchedBooks(bookData);
       setSearchInput('');
     } catch (err) {
@@ -59,37 +68,44 @@ const SearchBooks = () => {
     }
   };
 
-  // create function to handle saving a book to our database
+  // Function to handle saving a book
   const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
+    // Finding the book to save based on its bookId
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-
-    // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
+    // Returning if the user is not authenticated
     if (!token) {
       return false;
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      // Using the ADD_BOOK mutation to save the book
+      const responseFromMutation = await addBook({
+        variables: {
+          content: bookToSave
+        }
+      });
+      console.log(responseFromMutation);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      // if book successfully saves to user's account, save book id to state
+      // Updating the state with the newly saved bookId
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
+      // Handling errors and logging relevant information
       console.error(err);
+      console.log('Mutation error on attempting to save book follows:');
+      console.log(mutationError);
     }
   };
 
+  // Rendering the SearchBooks component with search form and results
   return (
     <>
+      {/* Header section */}
       <div className="text-light bg-dark p-5">
         <Container>
           <h1>Search for Books!</h1>
+          {/* Form for searching books */}
           <Form onSubmit={handleFormSubmit}>
             <Row>
               <Col xs={12} md={8}>
@@ -103,6 +119,7 @@ const SearchBooks = () => {
                 />
               </Col>
               <Col xs={12} md={4}>
+                {/* Button for submitting the search form */}
                 <Button type='submit' variant='success' size='lg'>
                   Submit Search
                 </Button>
@@ -112,16 +129,19 @@ const SearchBooks = () => {
         </Container>
       </div>
 
+      {/* Container for displaying search results */}
       <Container>
         <h2 className='pt-5'>
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
             : 'Search for a book to begin'}
         </h2>
+        {/* Displaying searched books in a row of cards */}
         <Row>
           {searchedBooks.map((book) => {
             return (
               <Col md="4" key={book.bookId}>
+                {/* Card for each searched book */}
                 <Card border='dark'>
                   {book.image ? (
                     <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
@@ -130,6 +150,7 @@ const SearchBooks = () => {
                     <Card.Title>{book.title}</Card.Title>
                     <p className='small'>Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
+                    {/* Button to save the book (if the user is logged in) */}
                     {Auth.loggedIn() && (
                       <Button
                         disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
@@ -151,4 +172,5 @@ const SearchBooks = () => {
   );
 };
 
+// Exporting the SearchBooks component
 export default SearchBooks;
