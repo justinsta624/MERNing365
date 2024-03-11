@@ -16,17 +16,10 @@ export default defineConfig({
 
     // Automatically opening the default browser when the development server starts
     open: true,
-
-    // Configuring a proxy for the '/graphql' route to redirect requests to another server
     proxy: {
       '/graphql': {
-        // Target server for proxying GraphQL requests
         target: 'http://localhost:3001',
-
-        // Disabling SSL certificate verification (useful when using a self-signed certificate in development)
         secure: false,
-
-        // Changing the origin of the request to the target server
         changeOrigin: true
       }
     }
