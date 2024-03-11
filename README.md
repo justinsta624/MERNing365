@@ -11,7 +11,7 @@
 [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://react.dev/)
 [![Node.js Badge](https://img.shields.io/badge/Node.js-393?style=for-the-badge&logo=nodedotjs&logoColor=fff)](https://nodejs.org/en)
 [![GitHub Badge](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/justinsta624/)
-[![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)](https://www.netlify.com/)
+[![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)](https://dashboard.heroku.com/apps)
 
 
 </div>
@@ -31,6 +31,13 @@ Followings are the outcomes of the challenge 21:
 ## Screenshots
 
 The following images show the web application's appearance and functionality:
+
+<img width="918" alt="Screenshot 2024-03-10 212043" src="https://github.com/justinsta624/MERNing365/assets/143357899/f3f11f32-3715-42e4-8d70-ae8bf6ff75e4">
+<img width="919" alt="Screenshot 2024-03-10 212110" src="https://github.com/justinsta624/MERNing365/assets/143357899/16b3f4b2-a76a-4c4b-a745-53594ca5561b">
+<img width="920" alt="Screenshot 2024-03-10 212119" src="https://github.com/justinsta624/MERNing365/assets/143357899/33f3a24b-a413-4658-9f65-6eb1b423f31d">
+<img width="918" alt="Screenshot 2024-03-10 212151" src="https://github.com/justinsta624/MERNing365/assets/143357899/a71881e2-dad6-42f7-97c6-d7fa46c6cfd0">
+<img width="890" alt="Screenshot 2024-03-10 212231" src="https://github.com/justinsta624/MERNing365/assets/143357899/15501056-a3ba-46e6-8fd5-26bc1bdcad27">
+<img width="908" alt="Screenshot 2024-03-10 212304" src="https://github.com/justinsta624/MERNing365/assets/143357899/6436b197-e84e-4051-9b4b-b41e57dfb024">
 
 
 <div align="center">
@@ -113,7 +120,7 @@ Login/Signup and an input field to search for books and a submit button
 1. Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
 2. Modify the existing authentication middleware so that it works in the context of a GraphQL API.
 3. Create an Apollo Provider so that requests can communicate with an Apollo Server.
-4. Deploy your application to Netlify
+4. Deploy your application to HEROKU
 
 ### Vite: Steps to follow
 
@@ -211,7 +218,7 @@ export default defineConfig({
 - **GraphQL**: Query language for APIs and a runtime environment for executing those queries against your data.
 - **Apollo Provider**: Component provided by the Apollo Client library, which is a comprehensive state management library for handling GraphQL data.
 - **Vite**: Build tool and development server for modern web development projects.
-- **Netlify**: Web development platform that provides a variety of services to simplify the process of building, deploying, and managing modern web projects.
+- **Heroku**: A cloud platform that offers easy deployment and management of web applications.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -225,7 +232,7 @@ export default defineConfig({
 - [GraphQL: Passing Arguments](https://graphql.org/graphql-js/passing-arguments/)
 - [JSON Web Tokens](https://jwt.io/introduction)
 - [Apollo: Authentication and authorization](https://www.apollographql.com/docs/apollo-server/security/authentication/)
-- [Vite Docs on deploying with Netlify](https://vitejs.dev/guide/static-deploy.html#netlify-with-git)
+- [Deploy with Heroku and MySQL](https://vitejs.dev/guide/static-deploy.html#netlify-with-git)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
